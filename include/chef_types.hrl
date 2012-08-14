@@ -180,12 +180,22 @@
          }).
 
 -record(chef_user, {
-          'id',
-          'authz_id',
-          'username',
-          'pubkey_version',
-          'public_key'
-         }).
+        'id',                               %% guid for object (unique)
+        'authz_id',                         %% authorization guid (placeholder - not used)
+        'username',                         %% username
+        'email',                            %% email - left null
+        'pubkey_version',                   %% public key version - set to 1 for CERT
+                                            %% osc users will also be using a CERT
+        'public_key',                       %% public key - might be null
+        'serialized_object',                %% salt + password
+        'last_updated_by',                  %% authz guid of last actor to update object -
+                                            %% it is  a place holder in this case
+        'created_at',                       %% time created at
+        'updated_at',                       %% time updated at
+        'external_authentication_uid',      %% open id if it is present - might be null
+        'recovery_authentication_enabled',  %% not used, will be null
+        'admin'                             %% if the user is an admin
+       }).
 
 %% These types are just convenient shorthands for subsets of our
 %% records that are used in the SQL layers.
