@@ -48,14 +48,16 @@
                             'chef_environment' |
                             'chef_client' |
                             'chef_role' |
-                            'chef_node'.
+                            'chef_node'|
+                            'chef_user'.
 
 -type chef_type() :: 'data_bag' |
                      'data_bag_item' |
                      'environment' |
                      'client' |
                      'node' |
-                     'role'.
+                     'role' |
+                     'user'.
 
 -type ejson_term() :: {maybe_improper_list()}.
 
