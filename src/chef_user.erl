@@ -21,14 +21,19 @@
 
 -export([parse_binary_json/2]).
 
--include("chef_types.hrl")
+-include("chef_types.hrl").
 
+%% Needs to be filled in with proper values for a user
+-define(DEFAULT_FIELD_VALUES, []).
+
+%% Needs to be filled i with proper values for a user
+-define(VALIDATION_CONSTRAINTS, []).
 
 -type user_action() :: create.
 
 %% @doc Convert a binary JSON string representing a Chef User into an
 %% EJson-encoded Erlang data structure.
--spec parse_barny_json( binary(), user_action() ) -> {ok, ejson_term() }. % or throw
+-spec parse_binary_json( binary(), user_action() ) -> {ok, ejson_term() }. % or throw
 parse_binary_json(Bin, Action) ->
   User0 = ejson:decode(Bin),
   User = set_default_values(User0, ?DEFAULT_FIELD_VALUES),
@@ -45,7 +50,7 @@ set_default_values(User, Defaults) ->
               User,
               Defaults).
 
--spec validate(ejson_term(), user_action()) -> {ok, ejson_term()}. % or throw
+-spec validate_user(ejson_term(), user_action()) -> {ok, ejson_term()}. % or throw
 validate_user(User, create) ->
   case chef_json_validator:validate_json_by_regex_constraints(User, ?VALIDATION_CONSTRAINTS) of
     ok -> {ok, User};
