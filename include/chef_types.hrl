@@ -210,8 +210,7 @@
                        #chef_node{} |
                        #chef_user{}.
 
--type chef_indexable_object() :: #chef_data_bag_item{} |
-                                 #chef_environment{} |
+-type chef_indexable_object() :: #chef_environment{} |
                                  #chef_client{} |
                                  #chef_role{} |
                                  #chef_node{}.
