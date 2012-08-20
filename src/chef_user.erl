@@ -23,11 +23,27 @@
 
 -include("chef_types.hrl").
 
-%% Needs to be filled in with proper values for a user
--define(DEFAULT_FIELD_VALUES, []).
+%% fields:
+ %% name - in webui, name has _ inserted for , (periods) so should check that there are no periods in the name here
+ %% salt - no default - generated in webui
+ %% password - no default -
+ %%   cannot be blank, must be 6 chars - encorced in webui
+ %%   it is also encrypted in webui, so might not feasible to verify restrictions here
+ %% openid - default is none - no restrictions on what it can be set to
 
-%% Needs to be filled i with proper values for a user
--define(VALIDATION_CONSTRAINTS, []).
+-define(DEFAULT_FIELD_VALUES,
+        [
+          {<<"json_class">>, <<"Chef::WebUIUser">>},
+          {<<"chef_type">>, <<"webui_user">>},
+          {<<"admin">>, <<"false">>},
+        ]).
+
+-define(VALIDATION_CONSTRAINTS,
+        [
+          {<<"json_class">>,  {match, "Chef::WebUIUser"}},
+          {<<"chef_type">>, {match, "webui_user"}},
+          {<<"admin">>, {match, "^true$|^false$"}},
+        ]).
 
 -type user_action() :: create.
 
